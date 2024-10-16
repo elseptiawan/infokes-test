@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import FolderTree from './components/FolderTree';
+import Subfolders from './components/Subfolders';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [selectedFolder, setSelectedFolder] = useState(null);
+
+    const handleFolderClick = (folderId) => {
+        setSelectedFolder(folderId);
+    };
+
+    return (
+        <div className="app">
+            <div className="left-panel">
+                <FolderTree onFolderClick={handleFolderClick} />
+            </div>
+            <div className="right-panel">
+                {selectedFolder ? (
+                    <Subfolders folderId={selectedFolder} />
+                ) : (
+                    <div>Select a folder to view subfolders</div>
+                )}
+            </div>
+        </div>
+    );
+};
 
 export default App;
